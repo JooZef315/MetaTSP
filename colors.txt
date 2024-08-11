@@ -1,0 +1,7 @@
+teal-400
+emerald-500
+
+blue-600
+
+zinc-500
+zinc-800
