@@ -102,7 +102,7 @@ export class AntColony extends TSPBase {
     const bestPaths: number[][] = [];
     const n = this.getRoutesCosts().length;
     const N = n + 1; // number of ants
-    const taw: number[][] = Array(n).fill(Array(n).fill(0));
+    let taw: number[][] = Array(n).fill(Array(n).fill(0));
 
     for (let i = 0; i < n; i++) {
       for (let j = 0; j < n; j++) {
@@ -132,7 +132,7 @@ export class AntColony extends TSPBase {
       paths.forEach((path) => path.push(path[0]));
 
       const costs = paths.map((path) => this.calcPathCost(path));
-      const newTaw = this.updatePheromones(paths, taw, costs);
+      taw = this.updatePheromones(paths, taw, costs);
 
       const minCost = Math.min(...costs);
       const idx = costs.indexOf(minCost);
@@ -141,51 +141,59 @@ export class AntColony extends TSPBase {
     }
 
     const bestPathIdx = bestCosts.indexOf(Math.min(...bestCosts));
-    return [bestCosts, Math.min(...bestCosts), bestPaths[bestPathIdx]];
+
+    const data = {
+      bestCostPerGeneration: bestCosts,
+      bestPathsPerGeneration: bestPaths,
+      bestCost: Math.min(...bestCosts),
+      bestPath: bestPaths[bestPathIdx],
+    };
+    // return [ bestCosts, Math.min(...bestCosts), bestPaths[bestPathIdx]];
+    return data;
   }
 
-  run(simulations: number = 20): Promise<[number, number[]]> {
+  run(simulations: number = 20) {
     this.simulations = simulations;
     const generations = Array.from(
       { length: this.generationsNum },
       (_, i) => i + 1
     );
-    const best = Array(this.generationsNum).fill(0);
+    const generationsBest = Array(this.generationsNum).fill(0);
     const startTime = Date.now();
 
     const bestPathsPerSimulation: number[][] = [];
     const bestCostPerSimulation: number[] = [];
 
-    const routesCosts = this.getRoutesCosts();
-
     for (let i = 0; i < this.simulations; i++) {
-      const [bestAS, minCost, minPath] = this.AS(
-        routesCosts,
+      const { bestCostPerGeneration, bestCost, bestPath } = this.AS(
         this.generationsNum,
         this.beta
       );
-      bestCostPerSimulation.push(minCost);
-      bestPathsPerSimulation.push(minPath);
+      bestCostPerSimulation.push(bestCost);
+      bestPathsPerSimulation.push(bestPath);
 
       for (let j = 0; j < this.generationsNum; j++) {
-        best[j] += bestAS[j];
+        generationsBest[j] += bestCostPerGeneration[j];
       }
     }
 
-    const avgBest = best.map((cost) => cost / this.simulations);
-
-    // Plotting can be done using a charting library here as per your requirement.
-
-    console.log(
-      `---------- total time : ${(Date.now() - startTime) / 1000} s ----------`
+    const avgGenerationsBest = generationsBest.map(
+      (cost) => cost / this.simulations
     );
 
-    const bestPathIdx = bestCostPerSimulation.indexOf(
-      Math.min(...bestCostPerSimulation)
-    );
-    return [
-      Math.round(Math.min(...avgBest)),
-      bestPathsPerSimulation[bestPathIdx],
-    ];
+    const bestCost = Math.min(...bestCostPerSimulation);
+    const bestPathIdx = bestCostPerSimulation.indexOf(bestCost);
+    const bestPath = bestPathsPerSimulation[bestPathIdx];
+    const duration = ((Date.now() - startTime) / 1000).toFixed(3);
+
+    console.log(`---------- total time : ${duration} s ----------`);
+
+    const data = {
+      bestPath,
+      bestCost,
+      time: duration,
+      chart: { x: generations, y: avgGenerationsBest },
+    };
+    return data;
   }
 }
