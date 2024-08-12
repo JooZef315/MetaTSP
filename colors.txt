@@ -4,4 +4,4 @@ emerald-500
 blue-600
 
 zinc-500
-zinc-800
+zinc-700
