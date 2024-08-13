@@ -1,3 +1,4 @@
+import { TData } from "../../types";
 import { chooseRandomNode } from "../../utils/chooseRandomNode";
 import { TSPBase } from "../TSPBase";
 
@@ -66,7 +67,7 @@ export class SimulatedAnnealing extends TSPBase {
    * Simulated Annealing algorithm to solve the TSP.
    * @returns A tuple containing the minimum cost and the best path.
    */
-  run() {
+  run(): TData {
     let T = this.T0;
     const chartTemperatures: number[] = [];
     const chartCosts: number[] = [];

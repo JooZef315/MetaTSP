@@ -1,3 +1,4 @@
+import { TData } from "../../types";
 import { chooseRandomNode } from "../../utils/chooseRandomNode";
 import { TSPBase } from "../TSPBase";
 
@@ -152,7 +153,7 @@ export class AntColony extends TSPBase {
     return data;
   }
 
-  run(simulations: number = 20) {
+  run(simulations: number = 20): TData {
     this.simulations = simulations;
     const generations = Array.from(
       { length: this.generationsNum },

@@ -1,3 +1,4 @@
+import { TData } from "../../types";
 import { chooseRandomNode } from "../../utils/chooseRandomNode";
 import { TSPBase } from "../TSPBase";
 
@@ -61,7 +62,7 @@ export class HillClimbing extends TSPBase {
    * Steepest ascent Hill Climbing algorithm to solve the TSP.
    * @returns A tuple containing the minimum cost and the best path.
    */
-  run() {
+  run(): TData {
     const simulations = Array.from({ length: this.simulations }, (_, i) => i);
     const costs: number[] = [];
     const pathes: number[][] = [];

@@ -12,11 +12,12 @@ export default function SideBarForm() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     console.log(algorithm);
     console.log(generations);
     console.log(beta);
     console.log(t0);
-    // setLoading(!loading);
+    setLoading(false);
   };
 
   return (
