@@ -1,7 +1,7 @@
 export default function Loading() {
   return (
     <div
-      className="h-screen w-screen m-auto py-8 flex flex-col gap-3 justify-center items-center bg-white bg-opacity-10 shadow-xl"
+      className="absolute h-[calc(100vh-76px)] w-screen m-auto py-8 flex flex-col gap-3 justify-center items-center bg-white bg-opacity-80 shadow-xl"
       role="status"
     >
       <span>
