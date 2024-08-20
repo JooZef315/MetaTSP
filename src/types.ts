@@ -1,5 +1,7 @@
 export type TCoords = [number, number][];
 
+export type TNode = [number, number];
+
 export enum TAlgorithms {
   Hill_Climbing = "Hill_Climbing",
   Simulated_Annealing = "Simulated_Annealing",

@@ -14,6 +14,6 @@ export const createInitGrid = () => {
     initGrid.push(row);
   }
   initGrid.reverse();
-  console.log(initGrid);
+
   return initGrid;
 };
