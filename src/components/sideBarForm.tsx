@@ -3,7 +3,11 @@ import { TAlgorithms } from "../types";
 import Loading from "./loading";
 import { ValidateInputs } from "../utils/ValidateInputs";
 
-export default function SideBarForm() {
+type PropsType = {
+  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export default function SideBarForm({ setIsOpen }: PropsType) {
   const [algorithm, setAlgorithm] = useState<TAlgorithms>();
   const [generations, setGenerations] = useState<number>();
   const [beta, setBeta] = useState<number>();
@@ -15,9 +19,15 @@ export default function SideBarForm() {
     e.preventDefault();
     setLoading(true);
     const params = ValidateInputs(algorithm, generations, beta, t0);
+
+    //do the algorithm!
+
     console.log(algorithm);
     console.log(params);
     setLoading(false);
+    if (setIsOpen) {
+      setIsOpen(false);
+    }
   };
 
   return (
