@@ -48,6 +48,7 @@ export class AntColony extends TSPBase {
   }
 
   private pickNextCity(path: number[], taw: number[][], beta: number): number {
+    console.log("path,", path);
     const routesCosts = this.getRoutesCosts();
     const cities = Array.from(
       { length: routesCosts.length + 1 },
@@ -58,21 +59,22 @@ export class AntColony extends TSPBase {
 
     let denominator = 0;
     const probabilities: number[] = [];
-
+    console.log("here 2: cities, ", cities);
     for (const nextCity of cities) {
       const t = taw[currentCity - 1][nextCity - 1];
       const d = routesCosts[currentCity - 1][nextCity - 1];
       denominator += Math.pow(t, alpha) / Math.pow(d, beta);
     }
-
+    console.log("here 3");
     for (const nextCity of cities) {
       const t = taw[currentCity - 1][nextCity - 1];
       const d = routesCosts[currentCity - 1][nextCity - 1];
       const Pij = Math.pow(t, alpha) / Math.pow(d, beta) / denominator;
       probabilities.push(Math.round(Pij * 100000) / 100000);
     }
-
+    console.log("here 4");
     const pickedCity = this.rouletteWheel(cities, probabilities);
+    console.log("here 5");
     return pickedCity;
   }
 
@@ -140,7 +142,6 @@ export class AntColony extends TSPBase {
       bestCosts.push(minCost);
       bestPaths.push(paths[idx]);
     }
-
     const bestPathIdx = bestCosts.indexOf(Math.min(...bestCosts));
 
     const data = {
@@ -149,7 +150,7 @@ export class AntColony extends TSPBase {
       bestCost: Math.min(...bestCosts),
       bestPath: bestPaths[bestPathIdx],
     };
-    // return [ bestCosts, Math.min(...bestCosts), bestPaths[bestPathIdx]];
+
     return data;
   }
 

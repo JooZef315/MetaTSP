@@ -13,7 +13,7 @@ export class SimulatedAnnealing extends TSPBase {
   private simulations: number;
   private T0: number;
 
-  constructor(T0: number) {
+  constructor(T0: number = 100) {
     super();
     this.T0 = T0;
     this.simulations = T0;

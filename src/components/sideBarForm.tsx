@@ -1,8 +1,11 @@
 import { FormEvent, useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { TAlgorithms } from "../types";
 import Loading from "./loading";
 import { ValidateInputs } from "../utils/ValidateInputs";
 import { useCoordinatesStore } from "../store/coordinatesStore";
+import { solveTSP } from "../utils/solveTSP";
 
 type PropsType = {
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,14 +23,17 @@ export default function SideBarForm({ setIsOpen }: PropsType) {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
+    // setLoading(true);
     const params = ValidateInputs(algorithm, generations, beta, t0);
 
-    //do the algorithm!
-    console.log(coordinates);
+    if (algorithm && coordinates.length > 1) {
+      solveTSP(coordinates, algorithm, params);
+    } else {
+      toast.error(
+        "You Have to choose an algorithm and select at least 2 nodes!"
+      );
+    }
 
-    console.log(algorithm);
-    console.log(params);
     setLoading(false);
     if (setIsOpen) {
       setIsOpen(false);
@@ -79,7 +85,8 @@ export default function SideBarForm({ setIsOpen }: PropsType) {
               />
             </div>
             <p className="text-center w-4/5 text-teal-500">
-              !NOTE: Leave Inputs Empty to use default hyperparameters
+              !NOTE: Leave Inputs Empty to use default hyperparameters <br />
+              Beta: 5, Generations: 20
             </p>
           </>
         )}
@@ -99,6 +106,8 @@ export default function SideBarForm({ setIsOpen }: PropsType) {
             </div>
             <p className="text-center w-4/5 text-teal-500">
               !NOTE: Leave Inputs Empty to use default hyperparameters
+              <br />
+              T0: 100
             </p>
           </>
         )}

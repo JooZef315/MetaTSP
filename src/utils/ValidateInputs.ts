@@ -2,13 +2,6 @@ import { toast } from "react-toastify";
 import { TAlgorithms } from "../types";
 import "react-toastify/dist/ReactToastify.css";
 
-// type Params = {
-//     algorithm: TAlgorithms,
-//     generations: number | undefined,
-//     beta: number | undefined,
-//     t0: number | undefined
-// }
-
 export const ValidateInputs = (
   algorithm: TAlgorithms | undefined,
   generations: number | undefined,

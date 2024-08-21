@@ -12,6 +12,7 @@ export default function GridView({ initGrid }: PropsType) {
   const removeFromGrid = useCoordinatesStore((state) => state.removeFromGrid);
 
   const toggleSelectNode = (node: TNode) => {
+    console.log(node);
     const nodeExisted = coordinates.some(
       (coordinate) => coordinate[0] == node[0] && coordinate[1] == node[1]
     );
@@ -30,7 +31,10 @@ export default function GridView({ initGrid }: PropsType) {
         </div>
         {initGrid.map((_, rowIdx) => {
           return (
-            <div className="w-6 min-w-6 h-6 min-h-6 text-center text-xs text-teal-400">
+            <div
+              key={rowIdx}
+              className="w-6 min-w-6 h-6 min-h-6 text-center text-xs text-teal-400"
+            >
               {rowIdx * 10}
             </div>
           );
@@ -49,6 +53,7 @@ export default function GridView({ initGrid }: PropsType) {
               );
               return (
                 <NodeCell
+                  key={`${node[0]},${node[1]}`}
                   node={node}
                   toggleSelectNode={toggleSelectNode}
                   isSelected={isSelected}
