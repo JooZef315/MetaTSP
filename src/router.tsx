@@ -1,11 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./pages/error-page";
-import Layout from "./components/layout";
+import Layout from "./components/layout/layout";
 import Home from "./pages/home";
-import TSPLayout from "./components/tspLayout";
+
 import Grid from "./pages/grid";
 import LiveMap from "./pages/liveMap";
 import Dashboard from "./pages/dashboard";
+import TSPLayout from "./components/layout/tspLayout";
 
 export const router = createBrowserRouter([
   {

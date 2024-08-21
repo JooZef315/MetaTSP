@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import SideBar from "./sideBar";
+import SideBar from "../sideBar";
 
 export default function TSPLayout() {
   return (
