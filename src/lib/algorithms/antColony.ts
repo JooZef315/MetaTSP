@@ -48,7 +48,6 @@ export class AntColony extends TSPBase {
   }
 
   private pickNextCity(path: number[], taw: number[][], beta: number): number {
-    console.log("path,", path);
     const routesCosts = this.getRoutesCosts();
     const cities = Array.from(
       { length: routesCosts.length + 1 },
@@ -59,13 +58,14 @@ export class AntColony extends TSPBase {
 
     let denominator = 0;
     const probabilities: number[] = [];
-    console.log("here 2: cities, ", cities);
+    console.log("cities: ", cities);
+    console.log("currentCity: ", currentCity);
     for (const nextCity of cities) {
       const t = taw[currentCity - 1][nextCity - 1];
       const d = routesCosts[currentCity - 1][nextCity - 1];
       denominator += Math.pow(t, alpha) / Math.pow(d, beta);
     }
-    console.log("here 3");
+
     for (const nextCity of cities) {
       const t = taw[currentCity - 1][nextCity - 1];
       const d = routesCosts[currentCity - 1][nextCity - 1];
@@ -124,9 +124,10 @@ export class AntColony extends TSPBase {
         );
         paths[ant].push(startingCity);
       }
-
+      console.log("paths: ", paths);
       for (let i = 0; i < n - 1; i++) {
         for (let k = 0; k < N; k++) {
+          console.log("city in order: ", paths[k]);
           const cityQk = this.pickNextCity(paths[k], taw, beta);
           paths[k].push(cityQk);
         }
