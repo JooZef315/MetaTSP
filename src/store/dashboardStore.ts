@@ -1,4 +1,4 @@
-import { createStore } from "zustand";
+import { create } from "zustand";
 import { TData } from "../types";
 
 type DashboardStore = {
@@ -6,7 +6,7 @@ type DashboardStore = {
   getDashboardData(data: TData): void;
 };
 
-export const useDashboardStore = createStore<DashboardStore>((set) => ({
+export const useDashboardStore = create<DashboardStore>((set) => ({
   DashboardData: null,
   getDashboardData(data) {
     set({ DashboardData: { ...data } });

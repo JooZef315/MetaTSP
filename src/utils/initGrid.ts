@@ -13,7 +13,6 @@ export const createInitGrid = () => {
     }
     initGrid.push(row);
   }
-  initGrid.reverse();
 
   return initGrid;
 };

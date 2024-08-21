@@ -2,12 +2,15 @@ import { FormEvent, useState } from "react";
 import { TAlgorithms } from "../types";
 import Loading from "./loading";
 import { ValidateInputs } from "../utils/ValidateInputs";
+import { useCoordinatesStore } from "../store/coordinatesStore";
 
 type PropsType = {
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function SideBarForm({ setIsOpen }: PropsType) {
+  const coordinates = useCoordinatesStore((state) => state.gridCoordinates);
+
   const [algorithm, setAlgorithm] = useState<TAlgorithms>();
   const [generations, setGenerations] = useState<number>();
   const [beta, setBeta] = useState<number>();
@@ -21,6 +24,7 @@ export default function SideBarForm({ setIsOpen }: PropsType) {
     const params = ValidateInputs(algorithm, generations, beta, t0);
 
     //do the algorithm!
+    console.log(coordinates);
 
     console.log(algorithm);
     console.log(params);

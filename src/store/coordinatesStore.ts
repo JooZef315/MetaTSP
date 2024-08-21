@@ -1,4 +1,4 @@
-import { createStore } from "zustand";
+import { create } from "zustand";
 import { TCoords, TNode } from "../types";
 
 type CoordinatesStore = {
@@ -10,7 +10,7 @@ type CoordinatesStore = {
   removeFromGrid(node: TNode): void;
 };
 
-export const useCoordinatesStore = createStore<CoordinatesStore>((set) => ({
+export const useCoordinatesStore = create<CoordinatesStore>((set) => ({
   mapCoordinates: [],
   gridCoordinates: [],
   placeOnMap(node) {
