@@ -103,6 +103,9 @@ export class HillClimbing extends TSPBase {
     const bestCost = Math.min(...costs);
     const bestPathIdx = costs.indexOf(bestCost);
     const bestPath = pathes[bestPathIdx];
+    const chartSimulations = simulations.filter((_, idx) => idx % 9 === 0);
+    const chartCosts = costs.filter((_, idx) => idx % 9 === 0);
+
     const duration = ((Date.now() - startTime) / 1000).toFixed(3);
 
     console.log(`--------- ${duration} seconds ---------\n\n`);
@@ -111,7 +114,7 @@ export class HillClimbing extends TSPBase {
       bestPath,
       bestCost,
       time: duration,
-      chart: { x: simulations, y: costs },
+      chart: { x: chartSimulations, y: chartCosts },
     };
 
     return data;

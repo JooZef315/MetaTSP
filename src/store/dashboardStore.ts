@@ -3,12 +3,12 @@ import { TData } from "../types";
 
 type DashboardStore = {
   DashboardData: TData | null;
-  getDashboardData(data: TData): void;
+  setDashboardData(data: TData): void;
 };
 
 export const useDashboardStore = create<DashboardStore>((set) => ({
   DashboardData: null,
-  getDashboardData(data) {
+  setDashboardData(data) {
     set({ DashboardData: { ...data } });
   },
 }));

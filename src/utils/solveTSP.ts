@@ -19,27 +19,19 @@ export const solveTSP = (
   algorithm: TAlgorithms,
   algorithmParams: AlgorithmParams
 ): TData => {
-  console.log(coordinates);
-  console.log(algorithm);
-  console.log(algorithmParams);
-
   let res = {} as TData;
 
   switch (algorithm) {
     case TAlgorithms.Hill_Climbing: {
       const agent = new HillClimbing();
-      const citiesCoord = agent.readRoutesFromList(coordinates);
-      console.log(citiesCoord);
-      console.log(agent.getRoutesCosts());
+      agent.readRoutesFromList(coordinates);
       res = agent.run();
       console.log(res);
       return res;
     }
     case TAlgorithms.Simulated_Annealing: {
       const agent = new SimulatedAnnealing(algorithmParams?.t0);
-      const citiesCoord = agent.readRoutesFromList(coordinates);
-      console.log(citiesCoord);
-      console.log(agent.getRoutesCosts());
+      agent.readRoutesFromList(coordinates);
       res = agent.run();
       console.log(res);
       return res;
@@ -49,9 +41,7 @@ export const solveTSP = (
         algorithmParams?.generations,
         algorithmParams?.beta
       );
-      const citiesCoord = agent.readRoutesFromList(coordinates);
-      console.log(citiesCoord);
-      console.log(agent.getRoutesCosts());
+      agent.readRoutesFromList(coordinates);
       res = agent.run();
       console.log(res);
       return res;

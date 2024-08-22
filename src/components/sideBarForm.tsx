@@ -1,12 +1,14 @@
 import { FormEvent, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { TAlgorithms } from "../types";
+import { TAlgorithms, TData } from "../types";
 import Loading from "./loading";
 import { ValidateInputs } from "../utils/ValidateInputs";
 import { useCoordinatesStore } from "../store/coordinatesStore";
 import { solveTSP } from "../utils/solveTSP";
 import ClearButton from "./clearButton";
+import { useNavigate } from "react-router-dom";
+import { useDashboardStore } from "../store/dashboardStore";
 
 type PropsType = {
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,30 +16,38 @@ type PropsType = {
 
 export default function SideBarForm({ setIsOpen }: PropsType) {
   const coordinates = useCoordinatesStore((state) => state.gridCoordinates);
+  const setDashboardData = useDashboardStore((state) => state.setDashboardData);
 
   const [algorithm, setAlgorithm] = useState<TAlgorithms>();
-  const [generations, setGenerations] = useState<number>();
-  const [beta, setBeta] = useState<number>();
-  const [t0, setT0] = useState<number>();
+  const [generations, setGenerations] = useState<number | undefined>(undefined);
+  const [beta, setBeta] = useState<number | undefined>(undefined);
+  const [t0, setT0] = useState<number | undefined>(undefined);
 
   const [loading, setLoading] = useState<boolean>(false);
 
+  const navigate = useNavigate();
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // setLoading(true);
-    const params = ValidateInputs(algorithm, generations, beta, t0);
 
     if (algorithm && coordinates.length > 1) {
-      solveTSP(coordinates, algorithm, params);
+      const params = ValidateInputs(algorithm, generations, beta, t0);
+      setLoading(true);
+
+      const data: TData = solveTSP(coordinates, algorithm, params);
+      setDashboardData(data);
+
+      setLoading(false);
+
+      if (setIsOpen) {
+        setIsOpen(false);
+      }
+
+      navigate("/dashboard");
     } else {
       toast.error(
         "You Have to choose an algorithm and select at least 2 nodes!"
       );
-    }
-
-    setLoading(false);
-    if (setIsOpen) {
-      setIsOpen(false);
     }
   };
 
@@ -71,8 +81,12 @@ export default function SideBarForm({ setIsOpen }: PropsType) {
                 id="generations"
                 step="1"
                 placeholder="Number of Ants generations"
-                value={generations}
-                onChange={(e) => setGenerations(parseInt(e.target.value))}
+                value={generations !== undefined ? generations : ""}
+                onChange={(e) =>
+                  setGenerations(
+                    e.target.value ? parseInt(e.target.value) : undefined
+                  )
+                }
               />
             </div>
             <div className="w-full">
@@ -82,8 +96,10 @@ export default function SideBarForm({ setIsOpen }: PropsType) {
                 name="beta"
                 id="beta"
                 placeholder="Beta"
-                value={beta}
-                onChange={(e) => setBeta(parseInt(e.target.value))}
+                value={beta !== undefined ? beta : ""}
+                onChange={(e) =>
+                  setBeta(e.target.value ? parseInt(e.target.value) : undefined)
+                }
               />
             </div>
             <p className="text-center w-4/5 text-teal-500">
@@ -102,8 +118,10 @@ export default function SideBarForm({ setIsOpen }: PropsType) {
                 id="T0"
                 step="1"
                 placeholder="Initial Temperature (T0)"
-                value={t0}
-                onChange={(e) => setT0(parseInt(e.target.value))}
+                value={t0 !== undefined ? t0 : ""}
+                onChange={(e) =>
+                  setT0(e.target.value ? parseInt(e.target.value) : undefined)
+                }
               />
             </div>
             <p className="text-center w-4/5 text-teal-500">

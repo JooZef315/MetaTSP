@@ -108,7 +108,6 @@ export class AntColony extends TSPBase {
 
     taw = taw.map((tawRow, rowIdx) => {
       return tawRow.map((_, tIdx) => {
-        console.log(rowIdx, tIdx, rowIdx !== tIdx);
         if (rowIdx !== tIdx) {
           return Math.pow(10, -7) * (Math.floor(Math.random() * 9) + 1);
         } else {
