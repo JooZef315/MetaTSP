@@ -8,6 +8,7 @@ type CoordinatesStore = {
   removeFromMap(node: TNode): void;
   placeOnGrid(node: TNode): void;
   removeFromGrid(node: TNode): void;
+  clearGrid(): void;
 };
 
 export const useCoordinatesStore = create<CoordinatesStore>((set) => ({
@@ -36,5 +37,8 @@ export const useCoordinatesStore = create<CoordinatesStore>((set) => ({
         ),
       ],
     }));
+  },
+  clearGrid() {
+    set({ gridCoordinates: [] });
   },
 }));

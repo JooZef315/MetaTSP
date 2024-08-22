@@ -6,6 +6,7 @@ import Loading from "./loading";
 import { ValidateInputs } from "../utils/ValidateInputs";
 import { useCoordinatesStore } from "../store/coordinatesStore";
 import { solveTSP } from "../utils/solveTSP";
+import ClearButton from "./clearButton";
 
 type PropsType = {
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -118,6 +119,9 @@ export default function SideBarForm({ setIsOpen }: PropsType) {
           >
             SOLVE!
           </button>
+        </div>
+        <div className="w-full">
+          <ClearButton />
         </div>
       </form>
     </>
