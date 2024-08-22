@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect } from "react";
 import MapNodes from "../components/mapNodes";
@@ -20,7 +20,7 @@ export default function LiveMap() {
         center={[30.505, 31.09]}
         zoom={8}
         minZoom={2}
-        className="h-full w-full"
+        className="h-full w-full z-0"
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         {coordinates.map((node, idx) => (
