@@ -50,10 +50,11 @@ export default function SideBarForm({ setIsOpen }: PropsType) {
       >
         <select
           className="w-full py-3 px-5 text-teal-400 ring-1 ring-teal-400 focus:ring-teal-400 focus:outline-none"
+          defaultValue={"Select an Algorithm"}
           value={algorithm}
           onChange={(e) => setAlgorithm(e.target.value as TAlgorithms)}
         >
-          <option value="" disabled selected>
+          <option value="Select an Algorithm" disabled>
             Select an Algorithm
           </option>
           <option value="Hill_Climbing">Hill Climbing</option>
@@ -121,7 +122,7 @@ export default function SideBarForm({ setIsOpen }: PropsType) {
           </button>
         </div>
         <div className="w-full">
-          <ClearButton />
+          <ClearButton setIsOpen={setIsOpen} />
         </div>
       </form>
     </>

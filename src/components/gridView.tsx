@@ -12,7 +12,6 @@ export default function GridView({ initGrid }: PropsType) {
   const removeFromGrid = useCoordinatesStore((state) => state.removeFromGrid);
 
   const toggleSelectNode = (node: TNode) => {
-    console.log(node);
     const nodeExisted = coordinates.some(
       (coordinate) => coordinate[0] == node[0] && coordinate[1] == node[1]
     );

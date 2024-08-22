@@ -16,9 +16,9 @@ export class AntColony extends TSPBase {
   private generationsNum: number;
   private beta: number;
 
-  constructor(generationsNum: number = 20, beta: number = 5) {
+  constructor(generationsNum: number = 10, beta: number = 5) {
     super();
-    this.simulations = 20; // 20 by default
+    this.simulations = 10; // 20 by default
     this.generationsNum = generationsNum;
     this.beta = beta;
   }
@@ -50,7 +50,7 @@ export class AntColony extends TSPBase {
   private pickNextCity(path: number[], taw: number[][], beta: number): number {
     const routesCosts = this.getRoutesCosts();
     const cities = Array.from(
-      { length: routesCosts.length + 1 },
+      { length: routesCosts.length },
       (_, i) => i + 1
     ).filter((c) => !path.includes(c));
     const currentCity = path[path.length - 1];
@@ -58,8 +58,7 @@ export class AntColony extends TSPBase {
 
     let denominator = 0;
     const probabilities: number[] = [];
-    console.log("cities: ", cities);
-    console.log("currentCity: ", currentCity);
+
     for (const nextCity of cities) {
       const t = taw[currentCity - 1][nextCity - 1];
       const d = routesCosts[currentCity - 1][nextCity - 1];
@@ -72,9 +71,9 @@ export class AntColony extends TSPBase {
       const Pij = Math.pow(t, alpha) / Math.pow(d, beta) / denominator;
       probabilities.push(Math.round(Pij * 100000) / 100000);
     }
-    console.log("here 4");
+
     const pickedCity = this.rouletteWheel(cities, probabilities);
-    console.log("here 5");
+
     return pickedCity;
   }
 
@@ -107,12 +106,16 @@ export class AntColony extends TSPBase {
     const N = n + 1; // number of ants
     let taw: number[][] = Array(n).fill(Array(n).fill(0));
 
-    for (let i = 0; i < n; i++) {
-      for (let j = 0; j < n; j++) {
-        const r = Math.pow(10, -7) * (Math.floor(Math.random() * 9) + 1);
-        taw[i][j] = taw[j][i] = i !== j ? r : 0;
-      }
-    }
+    taw = taw.map((tawRow, rowIdx) => {
+      return tawRow.map((_, tIdx) => {
+        console.log(rowIdx, tIdx, rowIdx !== tIdx);
+        if (rowIdx !== tIdx) {
+          return Math.pow(10, -7) * (Math.floor(Math.random() * 9) + 1);
+        } else {
+          return 0;
+        }
+      });
+    });
 
     for (let g = 0; g < generationsNum; g++) {
       const paths = Array.from({ length: N }, () => [] as number[]); //create empty path of each ant
@@ -124,10 +127,9 @@ export class AntColony extends TSPBase {
         );
         paths[ant].push(startingCity);
       }
-      console.log("paths: ", paths);
+
       for (let i = 0; i < n - 1; i++) {
         for (let k = 0; k < N; k++) {
-          console.log("city in order: ", paths[k]);
           const cityQk = this.pickNextCity(paths[k], taw, beta);
           paths[k].push(cityQk);
         }
@@ -155,7 +157,7 @@ export class AntColony extends TSPBase {
     return data;
   }
 
-  run(simulations: number = 20): TData {
+  run(simulations: number = 10): TData {
     this.simulations = simulations;
     const generations = Array.from(
       { length: this.generationsNum },
