@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import { useCoordinatesStore } from "../store/coordinatesStore";
 
 type PropsType = {
@@ -5,11 +6,20 @@ type PropsType = {
 };
 
 export default function ClearButton({ setIsOpen }: PropsType) {
-  const coordinates = useCoordinatesStore((state) => state.gridCoordinates);
+  const gridCoordinates = useCoordinatesStore((state) => state.gridCoordinates);
+  const mapCoordinates = useCoordinatesStore((state) => state.mapCoordinates);
   const clearGrid = useCoordinatesStore((state) => state.clearGrid);
+  const clearMap = useCoordinatesStore((state) => state.clearMap);
+
+  const location = useLocation();
 
   const handleClear = () => {
-    clearGrid();
+    if (location.pathname == "/map") {
+      clearMap();
+    } else {
+      clearGrid();
+    }
+
     if (setIsOpen) {
       setIsOpen(false);
     }
@@ -18,11 +28,17 @@ export default function ClearButton({ setIsOpen }: PropsType) {
   return (
     <button
       onClick={handleClear}
-      disabled={coordinates.length ? false : true}
+      disabled={
+        location.pathname == "/map" && mapCoordinates.length
+          ? false
+          : location.pathname == "/grid" && gridCoordinates.length
+          ? false
+          : true
+      }
       type="button"
       className="w-full py-3 px-5 bg-zinc-700 text-white hover:bg-zinc-800 font-semibold disabled:bg-zinc-400"
     >
-      Clear Grid
+      Clear Nodes
     </button>
   );
 }

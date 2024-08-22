@@ -1,6 +1,6 @@
 import { useCoordinatesStore } from "../store/coordinatesStore";
 import { TCoords, TNode } from "../types";
-import NodeCell from "./nodeCell";
+import GridNodeCell from "./gridNodeCell";
 
 type PropsType = {
   initGrid: TCoords[];
@@ -51,7 +51,7 @@ export default function GridView({ initGrid }: PropsType) {
                   coordinate[0] == node[0] && coordinate[1] == node[1]
               );
               return (
-                <NodeCell
+                <GridNodeCell
                   key={`${node[0]},${node[1]}`}
                   node={node}
                   toggleSelectNode={toggleSelectNode}

@@ -9,15 +9,19 @@ type CoordinatesStore = {
   placeOnGrid(node: TNode): void;
   removeFromGrid(node: TNode): void;
   clearGrid(): void;
+  clearMap(): void;
 };
 
 export const useCoordinatesStore = create<CoordinatesStore>((set) => ({
   mapCoordinates: [],
   gridCoordinates: [],
   placeOnMap(node) {
+    node[0] = Math.round(node[0] * 100) / 100;
+    node[1] = Math.round(node[1] * 100) / 100;
     set((state) => ({ mapCoordinates: [...state.mapCoordinates, node] }));
   },
   removeFromMap(node) {
+    console.log("remove ", node);
     set((state) => ({
       mapCoordinates: [
         ...state.mapCoordinates.filter(
@@ -40,5 +44,8 @@ export const useCoordinatesStore = create<CoordinatesStore>((set) => ({
   },
   clearGrid() {
     set({ gridCoordinates: [] });
+  },
+  clearMap() {
+    set({ mapCoordinates: [] });
   },
 }));

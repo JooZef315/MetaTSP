@@ -7,7 +7,7 @@ type PropsType = {
   isSelected: boolean;
 };
 
-export default function NodeCell({
+export default function GridNodeCell({
   node,
   toggleSelectNode,
   isSelected,
