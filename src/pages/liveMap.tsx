@@ -13,7 +13,7 @@ export default function LiveMap() {
       <MapContainer
         maxBounds={new LatLngBounds([-90, -180], [90, 180])}
         center={[30.505, 31.09]}
-        zoom={8}
+        zoom={4}
         minZoom={2}
         className="h-full w-full z-0"
       >
