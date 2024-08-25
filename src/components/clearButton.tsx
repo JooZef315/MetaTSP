@@ -14,7 +14,7 @@ export default function ClearButton({ setIsOpen }: PropsType) {
   const location = useLocation();
 
   const handleClear = () => {
-    if (location.pathname == "/map") {
+    if (location.pathname == "/MetaTSP/map") {
       clearMap();
     } else {
       clearGrid();
@@ -29,9 +29,9 @@ export default function ClearButton({ setIsOpen }: PropsType) {
     <button
       onClick={handleClear}
       disabled={
-        location.pathname == "/map" && mapCoordinates.length
+        location.pathname == "/MetaTSP/map" && mapCoordinates.length
           ? false
-          : location.pathname == "/grid" && gridCoordinates.length
+          : location.pathname == "/MetaTSP/grid" && gridCoordinates.length
           ? false
           : true
       }

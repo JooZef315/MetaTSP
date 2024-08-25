@@ -33,7 +33,7 @@ export default function SideBarForm({ setIsOpen }: PropsType) {
     e.preventDefault();
 
     const coordinates =
-      location.pathname == "/map" ? mapCoordinates : gridCoordinates;
+      location.pathname == "/MetaTSP/map" ? mapCoordinates : gridCoordinates;
 
     if (algorithm && coordinates.length > 1) {
       const params = ValidateInputs(algorithm, generations, beta, t0);
@@ -47,7 +47,7 @@ export default function SideBarForm({ setIsOpen }: PropsType) {
       if (setIsOpen) {
         setIsOpen(false);
       }
-      navigate("/dashboard");
+      navigate("/MetaTSP/dashboard");
     } else {
       toast.error(
         "You Have to choose an algorithm and select at least 2 nodes!"

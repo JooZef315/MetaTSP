@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 
 export default function Header() {
-  const backgroundImage = "url('../../assets/Designer.png')";
+  const backgroundImage =
+    "url('https://raw.githubusercontent.com/JooZef315/MetaTSP/main/assets/Designer.png')";
   return (
     <div
       className="bg-cover bg-center bg-no-repeat h-[calc(100vh-76px)] flex justify-start items-center"
@@ -18,13 +19,13 @@ export default function Header() {
         </p>
         <div className="flex gap-3 mt-5">
           <Link
-            to={"/grid"}
+            to={"/MetaTSP/grid"}
             className="bg-teal-400 rounded-3xl py-3 px-6 hover:bg-white hover:text-teal-400"
           >
             Solve on Grid
           </Link>
           <Link
-            to={"/map"}
+            to={"/MetaTSP/map"}
             className="bg-teal-400 rounded-3xl py-3 px-6 hover:bg-white hover:text-teal-400"
           >
             Solve on Map

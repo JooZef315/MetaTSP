@@ -8,7 +8,7 @@ export default function Navbar() {
     <nav className="bg-white flex text-center justify-around items-center py-5 mx-auto shadow-md sticky top-0 z-50">
       <h1 className="text-3xl self-center text-black">
         <NavLink
-          to="/"
+          to="/MetaTSP/"
           className={({ isActive }) => (isActive ? "text-teal-400" : "")}
         >
           TSPMeta
@@ -17,7 +17,7 @@ export default function Navbar() {
       <ul className="flex justify-center items-center text-xl gap-6">
         <li className="hover:text-teal-400">
           <NavLink
-            to={"/grid"}
+            to={"/MetaTSP/grid"}
             className={({ isActive }) => (isActive ? "text-teal-400" : "")}
           >
             Grid
@@ -25,7 +25,7 @@ export default function Navbar() {
         </li>
         <li className="hover:text-teal-400">
           <NavLink
-            to={"/map"}
+            to={"/MetaTSP/map"}
             className={({ isActive }) => (isActive ? "text-teal-400" : "")}
           >
             Map
@@ -34,7 +34,7 @@ export default function Navbar() {
         <li className="hover:text-teal-400">
           {DashboardData && (
             <NavLink
-              to={"/dashboard"}
+              to={"/MetaTSP/dashboard"}
               className={({ isActive }) => (isActive ? "text-teal-400" : "")}
             >
               Dashboard

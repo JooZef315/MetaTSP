@@ -2,7 +2,15 @@ import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import MapNodes from "../components/mapNodes";
 import { useCoordinatesStore } from "../store/coordinatesStore";
-import { LatLngBounds } from "leaflet";
+import L, { LatLngBounds } from "leaflet";
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
+
+const defaultIcon = L.icon({
+  iconUrl: markerIcon,
+  shadowUrl: markerShadow,
+  iconAnchor: [12, 41], // The iconAnchor positions the marker correctly
+});
 
 export default function LiveMap() {
   const coordinates = useCoordinatesStore((state) => state.mapCoordinates);
@@ -21,6 +29,7 @@ export default function LiveMap() {
         {coordinates.map((node, idx) => (
           <Marker
             key={idx}
+            icon={defaultIcon}
             position={node}
             eventHandlers={{
               click: () => removeFromMap(node),
