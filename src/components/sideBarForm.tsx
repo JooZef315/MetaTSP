@@ -7,7 +7,7 @@ import { ValidateInputs } from "../utils/ValidateInputs";
 import { useCoordinatesStore } from "../store/coordinatesStore";
 import { solveTSP } from "../utils/solveTSP";
 import ClearButton from "./clearButton";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDashboardStore } from "../store/dashboardStore";
 
 type PropsType = {
@@ -15,7 +15,8 @@ type PropsType = {
 };
 
 export default function SideBarForm({ setIsOpen }: PropsType) {
-  const coordinates = useCoordinatesStore((state) => state.gridCoordinates);
+  const gridCoordinates = useCoordinatesStore((state) => state.gridCoordinates);
+  const mapCoordinates = useCoordinatesStore((state) => state.mapCoordinates);
   const setDashboardData = useDashboardStore((state) => state.setDashboardData);
 
   const [algorithm, setAlgorithm] = useState<TAlgorithms>();
@@ -25,10 +26,14 @@ export default function SideBarForm({ setIsOpen }: PropsType) {
 
   const [loading, setLoading] = useState<boolean>(false);
 
+  const location = useLocation();
   const navigate = useNavigate();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const coordinates =
+      location.pathname == "/map" ? mapCoordinates : gridCoordinates;
 
     if (algorithm && coordinates.length > 1) {
       const params = ValidateInputs(algorithm, generations, beta, t0);
@@ -42,7 +47,6 @@ export default function SideBarForm({ setIsOpen }: PropsType) {
       if (setIsOpen) {
         setIsOpen(false);
       }
-
       navigate("/dashboard");
     } else {
       toast.error(

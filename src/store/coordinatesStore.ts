@@ -21,7 +21,6 @@ export const useCoordinatesStore = create<CoordinatesStore>((set) => ({
     set((state) => ({ mapCoordinates: [...state.mapCoordinates, node] }));
   },
   removeFromMap(node) {
-    console.log("remove ", node);
     set((state) => ({
       mapCoordinates: [
         ...state.mapCoordinates.filter(

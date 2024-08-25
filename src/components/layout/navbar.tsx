@@ -1,6 +1,9 @@
 import { NavLink } from "react-router-dom";
+import { useDashboardStore } from "../../store/dashboardStore";
 
 export default function Navbar() {
+  const DashboardData = useDashboardStore((state) => state.DashboardData);
+
   return (
     <nav className="bg-white flex text-center justify-around items-center py-5 mx-auto shadow-md sticky top-0 z-50">
       <h1 className="text-3xl self-center text-black">
@@ -27,6 +30,16 @@ export default function Navbar() {
           >
             Map
           </NavLink>
+        </li>
+        <li className="hover:text-teal-400">
+          {DashboardData && (
+            <NavLink
+              to={"/dashboard"}
+              className={({ isActive }) => (isActive ? "text-teal-400" : "")}
+            >
+              Dashboard
+            </NavLink>
+          )}
         </li>
       </ul>
     </nav>

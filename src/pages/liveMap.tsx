@@ -1,6 +1,5 @@
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { useEffect } from "react";
 import MapNodes from "../components/mapNodes";
 import { useCoordinatesStore } from "../store/coordinatesStore";
 import { LatLngBounds } from "leaflet";
@@ -8,10 +7,6 @@ import { LatLngBounds } from "leaflet";
 export default function LiveMap() {
   const coordinates = useCoordinatesStore((state) => state.mapCoordinates);
   const removeFromMap = useCoordinatesStore((state) => state.removeFromMap);
-
-  useEffect(() => {
-    console.log(coordinates);
-  }, [coordinates]);
 
   return (
     <main className="h-full flex justify-center items-center">
