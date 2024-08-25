@@ -1,50 +1,68 @@
-# React + TypeScript + Vite
+# TSPMeta
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### TSP Solver with Metaheuristic Algorithms
 
-Currently, two official plugins are available:
+This project is an application designed to solve the Traveling Salesman Problem (TSP) using various metaheuristic algorithms. It provides an interactive way for users to explore different algorithms, visualize their performance, and understand their behavior in finding optimal routes for TSP scenarios.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **Interactive Playground**: Choose between a grid or map environment to simulate the TSP. This flexibility allows the app to handle both abstract grid-based problems and real-world geographical problems.
+- **Node Placement**: Easily place nodes on the grid or map by clicking, representing cities or locations that the algorithm will visit.
+- **Algorithm Selection**: Choose from a variety of metaheuristic algorithms, such as Hill Climbing, Simulated Annealing Algorithm and Ant Colony Optimization. Customize their parameters to optimize the route.
+- **Real-Time Visualization**: Visualize the algorithm's progress as it works to find the shortest possible route that visits all nodes.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## How It Works
 
-- Configure the top-level `parserOptions` property like this:
+1. **Choose Your Playground**: Select your environment—either a grid for abstract problem-solving or a map for geographical scenarios.
+2. **Place Your Nodes**: Click on the grid or map to add nodes representing the cities or locations to be visited.
+3. **Run the Algorithm**: Choose a metaheuristic algorithm, adjust its parameters, and run it to see the optimal route it discovers.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Tech Stack
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- **TypeScript**: For type safety and better developer experience.
+- **React**: Frontend framework for building the user interface.
+- **Tailwind CSS**: Utility-first CSS framework for styling.
+- **React Router DOM**: For managing routes and navigation.
+- **React Leaflet**: Used for interactive maps.
+- **Chart.js**: For visualizing the results of the algorithm.
+- **Zustand**: For state management
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Installation
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+To run this project locally, follow these steps:
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/JooZef315/MetaTSP.git
+   cd MetaTSP
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Run the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+4. Open [http://localhost:5173](http://localhost:3000) to view it in the browser.
+
+## Usage
+
+- Navigate to the home page and choose either a grid or a map as your playground.
+- Click on the playground to set your nodes.
+- Select an algorithm from the list and tweak its parameters if necessary.
+- Run the simulation to see the optimized path.
+
+## Future Improvements
+
+- Enhanced visual feedback and detailed analysis of algorithm performance.
+
+## License
+
+This project is licensed under the [MIT licensed](LICENSE).
