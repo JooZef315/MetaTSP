@@ -10,30 +10,30 @@ import TSPLayout from "./components/layout/tspLayout";
 
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/MetaTSP/",
     element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/",
+        path: "/MetaTSP/",
         element: <Home />,
       },
       {
-        path: "/",
+        path: "/MetaTSP/",
         element: <TSPLayout />,
         children: [
           {
-            path: "/grid",
+            path: "/MetaTSP/grid",
             element: <Grid />,
           },
           {
-            path: "/map",
+            path: "/MetaTSP/map",
             element: <LiveMap />,
           },
         ],
       },
       {
-        path: "/dashboard",
+        path: "/MetaTSP/dashboard",
         element: <Dashboard />,
       },
     ],
